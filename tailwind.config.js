@@ -8,11 +8,12 @@ export default {
     extend: {
       colors: {
         sgd: {
-          dark: '#051a0c',
-          green: '#10b981',
-          light: '#34d399',
-          gold: '#d4af37',
-          goldhover: '#b5952f'
+          primary: '#0B2A4A', // Navy Blue
+          secondary: '#C5A059', // Gold
+          accent: '#1E4E8C', // Medium Blue
+          light: '#F8FBFF', // Light Blue/White
+          gold: '#C5A059',
+          goldhover: '#B18E4E'
         }
       },
       fontFamily: {

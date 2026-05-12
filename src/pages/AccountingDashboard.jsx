@@ -36,12 +36,12 @@ const AccountingDashboard = ({ onSwitchToHrm }) => {
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="kd-hero relative p-8 mb-8 mt-6 z-10">
         <div className="flex justify-between items-start">
           <div>
-            <h4 className="text-emerald-600 font-extrabold text-[11px] uppercase tracking-[0.1em] mb-4">SGD ACCOUNTING - V7 ENGINE</h4>
-            <h1 className="text-[32px] font-bold text-slate-900 leading-tight mb-2">Accounting Dashboard</h1>
+            <h4 className="text-[#C5A059] font-extrabold text-[11px] uppercase tracking-[0.1em] mb-4">SGD ACCOUNTING - MANAGEMENT HUB</h4>
+            <h1 className="text-[32px] font-bold text-[#0B2A4A] leading-tight mb-2">Financial Dashboard</h1>
             <p className="text-slate-500 font-medium text-[15px]">Monitor real-time financial health, cash flow, and project budgets.</p>
           </div>
           <div className="flex gap-3">
-            <button className="kd-btn-soft bg-emerald-500 text-white border-none hover:bg-emerald-600 shadow-lg shadow-emerald-200/50">
+            <button className="kd-btn-soft bg-[#0B2A4A] text-[#C5A059] border-none hover:brightness-110 shadow-lg shadow-slate-200">
               <Plus size={16} /> New Transaction
             </button>
             <button onClick={onSwitchToHrm} className="kd-btn-soft">Switch to HRM</button>
@@ -52,8 +52,8 @@ const AccountingDashboard = ({ onSwitchToHrm }) => {
       {/* Feature Hub */}
       <div className="mb-10 relative z-10">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-1.5 h-6 bg-emerald-500 rounded-full"></div>
-          <h5 className="text-[18px] font-extrabold text-slate-800">Pusat Fitur Baru</h5>
+          <div className="w-1.5 h-6 bg-[#C5A059] rounded-full"></div>
+          <h5 className="text-[18px] font-extrabold text-[#0B2A4A]">Pusat Fitur SGD</h5>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {ACCOUNTING_DUMMY_DATA?.hubItems?.map((item, i) => {
@@ -62,11 +62,11 @@ const AccountingDashboard = ({ onSwitchToHrm }) => {
               <motion.div 
                 key={i} 
                 whileHover={{ y: -3 }}
-                className="kd-widget border-emerald-100/50 bg-white/80 backdrop-blur-sm p-5 flex flex-col justify-between min-h-[160px]"
+                className="kd-widget border-slate-200 bg-white/80 backdrop-blur-sm p-5 flex flex-col justify-between min-h-[160px]"
               >
                 <div>
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
+                    <div className="p-2 bg-[#F0F7FF] text-[#0B2A4A] rounded-lg">
                       <Icon size={18} />
                     </div>
                     <h6 className="text-[13px] font-bold text-slate-800">{item.title}</h6>
@@ -76,7 +76,7 @@ const AccountingDashboard = ({ onSwitchToHrm }) => {
                 </div>
                 <button 
                   onClick={(e) => e.preventDefault()}
-                  className="mt-4 w-full py-1.5 border border-emerald-100 rounded-lg text-[11px] font-bold text-emerald-600 hover:bg-emerald-50 transition-all"
+                  className="mt-4 w-full py-1.5 border border-slate-200 rounded-lg text-[11px] font-bold text-[#0B2A4A] hover:bg-[#F0F7FF] transition-all"
                 >
                   Buka Modul
                 </button>
@@ -110,7 +110,7 @@ const AccountingDashboard = ({ onSwitchToHrm }) => {
           {/* Account Balances */}
           <div className="kd-widget">
             <div className="kd-widget-hd">
-              <h5 className="flex items-center gap-2"><Wallet size={18} className="text-emerald-500" /> Saldo Akun</h5>
+              <h5 className="flex items-center gap-2"><Wallet size={18} className="text-[#C5A059]" /> Saldo Akun</h5>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left">
@@ -198,7 +198,7 @@ const AccountingDashboard = ({ onSwitchToHrm }) => {
 
       {/* Target Progress Section */}
       <div className="mt-10 relative z-10">
-        <div className="kd-widget p-6 border-l-4 border-l-emerald-500">
+        <div className="kd-widget p-6 border-l-4 border-l-[#0B2A4A]">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="flex gap-6">
               <div>
@@ -217,7 +217,7 @@ const AccountingDashboard = ({ onSwitchToHrm }) => {
             <div className="flex-1 max-w-md">
               <div className="flex justify-between mb-2">
                 <span className="text-[11px] font-bold text-slate-500">Progres: Rp1.2M of Rp2M</span>
-                <span className="text-[11px] font-extrabold text-emerald-600">60%</span>
+                <span className="text-[11px] font-extrabold text-[#C5A059]">60%</span>
               </div>
               <div className="kd-progress">
                 <span style={{ width: '60%' }}></span>
@@ -227,8 +227,8 @@ const AccountingDashboard = ({ onSwitchToHrm }) => {
         </div>
       </div>
       
-      <p className="text-center text-[12px] text-slate-400 font-medium py-12 border-t border-[#d4e8de] mt-10">
-        Copyright © 2026 SGD Accounting | Powered by Langit Anantara Kreasi.
+      <p className="text-center text-[12px] text-slate-400 font-medium py-12 border-t border-slate-200 mt-10">
+        Copyright © {new Date().getFullYear()} Sunggiardi Group | Finance Center.
       </p>
     </div>
   );

@@ -16,42 +16,98 @@ const HrmDashboard = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [aiResponse, setAiResponse] = useState('');
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    if (!search) return;
+    if (!search || !import.meta.env.VITE_AI_API_KEY) {
+      if (!import.meta.env.VITE_AI_API_KEY) {
+        setAiResponse("Silakan masukkan API Key SumoPod di file .env terlebih dahulu untuk mengaktifkan fitur ini.");
+      }
+      return;
+    }
+    
     setIsTyping(true);
     setAiResponse('');
     
-    setTimeout(() => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_AI_BASE_URL}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_AI_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: import.meta.env.VITE_AI_MODEL || "gpt-4o-mini",
+          messages: [
+            { 
+              role: "system", 
+              content: `Anda adalah asisten cerdas untuk Sunggiardi Group (Unit: Sunggiardi CARE). 
+              Gunakan data berikut untuk menjawab pertanyaan: 
+              - Total Karyawan: ${HRM_DUMMY_DATA.stats[0].value}
+              - Kehadiran Hari Ini: 90%
+              - Karyawan Aktif: 42
+              - Tugas Hari Ini: 12
+              Berikan jawaban yang singkat, profesional, dan ramah dalam Bahasa Indonesia.`
+            },
+            { role: "user", content: search }
+          ],
+          temperature: 0.7
+        })
+      });
+
+      const data = await response.json();
+      const aiMsg = data.choices[0].message.content;
+      setAiResponse(aiMsg);
+    } catch (error) {
+      console.error("AI Error:", error);
+      setAiResponse("Maaf, terjadi kesalahan saat menghubungi AI. Pastikan API Key dan Koneksi Anda benar.");
+    } finally {
       setIsTyping(false);
-      setAiResponse(`Berdasarkan data terbaru, ada 42 karyawan aktif. Hari ini 38 orang sudah check-in dan 3 orang sedang cuti.`);
-    }, 1500);
+    }
   };
 
   return (
     <div className="kd-shell relative min-h-screen font-['Plus_Jakarta_Sans'] overflow-y-auto px-8 pb-10">
       <div className="kd-bg-layer" />
       
-      {/* Update Information Card */}
+      {/* Welcome & Quick Action Card */}
       <motion.div 
-        initial={{ opacity: 0, y: -10 }}
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="kd-hero relative p-8 mb-8 mt-6 z-10"
+        className="relative p-8 mb-8 mt-6 z-10 rounded-[32px] overflow-hidden bg-[#0B2A4A] shadow-2xl shadow-slate-300"
       >
-        <button className="absolute top-6 right-6 text-slate-300 hover:text-slate-900 transition-colors">
-          <X size={20} />
-        </button>
-        <div className="max-w-4xl">
-          <h4 className="text-rose-600 font-extrabold text-[11px] uppercase tracking-[0.1em] mb-4">UPDATE INFORMATION - 17 APRIL 2026.</h4>
-          <p className="text-slate-900 font-bold text-[16px] leading-relaxed">
-            Integration Center <span className="font-medium text-slate-500">akan segera hadir sebagai pusat koneksi </span> 
-            HRM, Accounting, dan CRM <span className="font-medium text-slate-500">dalam satu halaman yang lebih rapi, cepat, dan mudah dipahami </span>
-            <span className="text-emerald-500 underline cursor-pointer">lihat preview.</span>
-          </p>
-          <ul className="mt-4 space-y-2 text-slate-900 text-[13px]">
-            <li className="flex gap-2"><span>-</span> <span className="font-bold">Satu pusat kontrol:</span> <span className="font-medium text-slate-500">tim tidak perlu bolak-balik buka banyak project hanya untuk cek koneksi dan jalankan sinkronisasi.</span></li>
-            <li className="flex gap-2"><span>-</span> <span className="font-bold">1 Klik semua data tersingkron:</span> <span className="font-medium text-slate-500">client, customer, contact, project, quotation, invoice, reimburse, payroll, dan data penting lain akan semakin mudah diselaraskan antar platform.</span></li>
-          </ul>
+        {/* Background Decorative Elements */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#C5A059] opacity-10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#1E4E8C] opacity-10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
+
+        <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="max-w-xl text-center md:text-left">
+            <h4 className="text-[#C5A059] font-black text-[11px] uppercase tracking-[0.3em] mb-3">SGD CARE WORKSPACE</h4>
+            <h1 className="text-3xl font-black text-white leading-tight mb-4">
+              Selamat Bekerja, <span className="text-[#C5A059]">Super Admin!</span>
+            </h1>
+            <p className="text-slate-300 font-medium text-[15px] leading-relaxed mb-6">
+              Kelola layanan maintenance profesional, jadwal teknisi, dan administrasi operasional dengan satu kendali pusat yang cerdas dan efisien.
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+              <button className="px-6 py-3 bg-[#C5A059] text-[#0B2A4A] rounded-2xl font-black text-xs hover:brightness-110 transition-all shadow-lg shadow-black/20">
+                Tambah Tugas Baru
+              </button>
+              <button className="px-6 py-3 bg-white/10 border border-white/20 text-white rounded-2xl font-black text-xs hover:bg-white/20 transition-all backdrop-blur-md">
+                Laporan Mingguan
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 w-full md:w-auto">
+            <div className="bg-white/10 backdrop-blur-xl border border-white/10 p-5 rounded-3xl text-center min-w-[140px]">
+              <p className="text-[10px] font-bold text-[#C5A059] uppercase tracking-widest mb-1">Teknisi Aktif</p>
+              <h3 className="text-2xl font-black text-white">42</h3>
+            </div>
+            <div className="bg-white/10 backdrop-blur-xl border border-white/10 p-5 rounded-3xl text-center min-w-[140px]">
+              <p className="text-[10px] font-bold text-[#C5A059] uppercase tracking-widest mb-1">Tugas Hari Ini</p>
+              <h3 className="text-2xl font-black text-white">12</h3>
+            </div>
+          </div>
         </div>
       </motion.div>
 
@@ -67,7 +123,7 @@ const HrmDashboard = () => {
         
         <form onSubmit={handleSearch} className="kd-ai-input-wrap">
           <div className="flex-1 flex items-center gap-3 px-2">
-            <Search size={18} className="text-[#22b573]" />
+            <Search size={18} className="text-[#0B2A4A]" />
             <input 
               type="text" 
               value={search}
@@ -76,17 +132,17 @@ const HrmDashboard = () => {
               className="w-full bg-transparent border-0 focus:outline-none text-[15px] font-medium placeholder:text-slate-400"
             />
           </div>
-          <button type="submit" className="w-[36px] h-[36px] bg-emerald-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/20 hover:scale-110 active:scale-95 transition-all">
+          <button type="submit" className="w-[36px] h-[36px] bg-[#0B2A4A] text-[#C5A059] rounded-full flex items-center justify-center shadow-lg shadow-slate-200 hover:scale-110 active:scale-95 transition-all">
             <Send size={16} />
           </button>
         </form>
         
         {isTyping && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 p-4 bg-white/50 rounded-xl border border-emerald-100 flex items-center gap-3">
-             <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" />
-             <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce delay-100" />
-             <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce delay-200" />
-             <span className="text-xs font-bold text-emerald-600">AI sedang menganalisa data...</span>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 p-4 bg-white/50 rounded-xl border border-slate-200 flex items-center gap-3">
+             <div className="w-2 h-2 bg-[#C5A059] rounded-full animate-bounce" />
+             <div className="w-2 h-2 bg-[#C5A059] rounded-full animate-bounce delay-100" />
+             <div className="w-2 h-2 bg-[#C5A059] rounded-full animate-bounce delay-200" />
+             <span className="text-xs font-bold text-[#0B2A4A]">AI sedang menganalisa data SGD...</span>
           </motion.div>
         )}
         
@@ -108,9 +164,9 @@ const HrmDashboard = () => {
           <div className="dot" />
           DASHBOARD - SGD
         </div>
-        <div className="flex bg-white rounded-full p-1 border border-[#d4e8de] shadow-sm">
+        <div className="flex bg-white rounded-full p-1 border border-slate-200 shadow-sm">
           {['Today', 'This Week', 'This Month'].map(t => (
-            <button key={t} className={`px-5 py-2 rounded-full text-[11px] font-bold tracking-tight transition-all ${t === 'This Month' ? 'bg-[#22b573] text-white shadow-md' : 'text-slate-400 hover:text-slate-600'}`}>
+            <button key={t} className={`px-5 py-2 rounded-full text-[11px] font-bold tracking-tight transition-all ${t === 'This Month' ? 'bg-[#0B2A4A] text-[#C5A059] shadow-md' : 'text-slate-400 hover:text-slate-600'}`}>
               {t}
             </button>
           ))}
@@ -222,11 +278,11 @@ const HrmDashboard = () => {
                 { label: 'FORMS', value: '0' },
                 { label: 'APPROVAL HUB', value: '1' },
               ].map((c, i) => (
-                <div key={i} className="kd-kpi relative group cursor-pointer hover:border-[#22b573]/50 transition-all shadow-sm">
+                <div key={i} className="kd-kpi relative group cursor-pointer hover:border-[#C5A059]/50 transition-all shadow-sm">
                   <p className="lbl">{c.label}</p>
                   <h4 className="val">{c.value}</h4>
                   <p className="meta">Pending approval</p>
-                  <ArrowUpRight size={14} className="absolute top-4 right-4 text-slate-300 group-hover:text-emerald-500" />
+                  <ArrowUpRight size={14} className="absolute top-4 right-4 text-slate-300 group-hover:text-[#C5A059]" />
                 </div>
               ))}
             </div>
@@ -234,8 +290,8 @@ const HrmDashboard = () => {
         </div>
       </div>
       
-      <p className="text-center text-[12px] text-slate-400 font-medium py-12 border-t border-[#d4e8de] mt-10">
-        Copyright © 2026 Langit Creative Solutions | PT. Langit Anantara Kreasi.
+      <p className="text-center text-[12px] text-slate-400 font-medium py-12 border-t border-slate-200 mt-10">
+        Copyright © {new Date().getFullYear()} Sunggiardi Group | Professional Maintenance Service.
       </p>
     </div>
   );
