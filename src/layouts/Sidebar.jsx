@@ -10,7 +10,18 @@ import { useNavigate } from 'react-router-dom';
 
 const Sidebar = ({ activeMenu, setActiveMenu, currentMode, onModeChange, onLogout, isOpen, setIsOpen }) => {
   const [showBranches, setShowBranches] = useState(false);
+  const [selectedEntity, setSelectedEntity] = useState({
+    name: 'Sunggiardi CARE',
+    logo: 'https://ik.imagekit.io/Sgd/sgdvertical?updatedAt=1767588284404',
+    isUtama: true
+  });
   const navigate = useNavigate();
+
+  const entities = [
+    { name: 'Sunggiardi CARE', logo: 'https://ik.imagekit.io/Sgd/sgdvertical?updatedAt=1767588284404', isUtama: true },
+    { name: 'Sunggiardi Corporation', logo: 'https://ik.imagekit.io/Sgd/Logo%20Potrait.png?updatedAt=1771273586419' },
+    { name: 'Sunggiardi Construction', logo: 'https://ik.imagekit.io/Sgd/sgdc.jpg?updatedAt=1771273586497' }
+  ];
   
   const hrmMenuItems = [
     { type: 'divider', label: 'Consolidation' },
@@ -124,30 +135,38 @@ const Sidebar = ({ activeMenu, setActiveMenu, currentMode, onModeChange, onLogou
           onClick={() => setShowBranches(!showBranches)}
           className="w-full flex items-center gap-3 px-4 py-3 bg-white border border-slate-200 rounded-2xl hover:shadow-md transition-all group"
         >
-          <div className="w-8 h-8 bg-[#F0F7FF] rounded-lg flex items-center justify-center text-[#0B2A4A] shadow-sm border border-slate-100">
-            <Building2 size={16} />
+          <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-[#0B2A4A] shadow-sm border border-slate-100 overflow-hidden p-1">
+            <img src={selectedEntity.logo} alt={selectedEntity.name} className="w-full h-full object-contain" />
           </div>
-          <div className="flex-1 text-left">
+          <div className="flex-1 text-left min-w-0">
             <p className="text-[10px] font-extrabold text-[#C5A059] uppercase tracking-widest leading-none mb-1">SUNGGIARDI GROUP</p>
-            <p className="text-xs font-black text-[#0B2A4A]">Sunggiardi CARE (Utama)</p>
+            <p className="text-[11px] font-black text-[#0B2A4A] truncate">{selectedEntity.name} {selectedEntity.isUtama && '(Utama)'}</p>
           </div>
           <ChevronDown size={14} className={`text-slate-400 transition-transform ${showBranches ? 'rotate-180' : ''}`} />
         </button>
 
         {/* Entity Dropdown */}
         {showBranches && (
-          <div className="absolute top-full left-4 right-4 mt-2 bg-white border border-slate-200 rounded-2xl shadow-xl z-[60] overflow-hidden p-1 animate-fade-in">
-            {['Sunggiardi CARE', 'Sunggiardi Corporation', 'Sunggiardi Construction'].map((entity, i) => (
-              <button 
-                key={i}
-                className="w-full flex items-center gap-3 px-4 py-3 hover:bg-[#F0F7FF] rounded-xl text-xs font-bold text-slate-700 transition-colors"
-                onClick={() => setShowBranches(false)}
-              >
-                <div className="w-1.5 h-1.5 rounded-full bg-[#C5A059]" />
-                {entity}
-              </button>
-            ))}
-          </div>
+          <>
+            <div className="fixed inset-0 z-[55]" onClick={() => setShowBranches(false)} />
+            <div className="absolute top-full left-4 right-4 mt-2 bg-white border border-slate-200 rounded-2xl shadow-xl z-[60] overflow-hidden p-1 animate-fade-in">
+              {entities.map((entity, i) => (
+                <button 
+                  key={i}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-[11px] font-bold transition-all ${selectedEntity.name === entity.name ? 'bg-[#F0F7FF] text-[#0B2A4A]' : 'text-slate-600 hover:bg-slate-50'}`}
+                  onClick={() => {
+                    setSelectedEntity(entity);
+                    setShowBranches(false);
+                  }}
+                >
+                  <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center border border-slate-100 overflow-hidden p-1">
+                    <img src={entity.logo} alt={entity.name} className="w-full h-full object-contain" />
+                  </div>
+                  <span className="truncate">{entity.name}</span>
+                </button>
+              ))}
+            </div>
+          </>
         )}
       </div>
 

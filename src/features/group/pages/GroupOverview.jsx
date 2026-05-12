@@ -13,21 +13,21 @@ const GroupOverview = () => {
       desc: 'Maintenance & Service',
       stats: { emp: 42, projects: 12, cash: 'Rp1.2B' },
       color: 'from-blue-600 to-[#0B2A4A]',
-      icon: Zap
+      logo: 'https://ik.imagekit.io/Sgd/sgdvertical?updatedAt=1767588284404'
     },
     { 
       name: 'Sunggiardi Corporation', 
       desc: 'Holding & Investment',
       stats: { emp: 15, projects: 4, cash: 'Rp5.8B' },
       color: 'from-[#C5A059] to-[#8c6d30]',
-      icon: ShieldCheck
+      logo: 'https://ik.imagekit.io/Sgd/Logo%20Potrait.png?updatedAt=1771273586419'
     },
     { 
       name: 'Sunggiardi Construction', 
       desc: 'Engineering & Build',
       stats: { emp: 85, projects: 8, cash: 'Rp2.4B' },
       color: 'from-slate-700 to-slate-900',
-      icon: Building2
+      logo: 'https://ik.imagekit.io/Sgd/sgdc.jpg?updatedAt=1771273586497'
     }
   ];
 
@@ -110,9 +110,9 @@ const GroupOverview = () => {
               <div className="flex justify-between items-start mb-8 md:mb-10">
                 <motion.div 
                   whileHover={{ rotate: 5 }}
-                  className={`w-12 md:w-14 h-12 md:h-14 bg-gradient-to-br ${c.color} rounded-2xl flex items-center justify-center text-white shadow-lg shadow-black/10`}
+                  className="w-12 md:w-14 h-12 md:h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-black/5 overflow-hidden p-1 border border-slate-100"
                 >
-                  <c.icon size={24} />
+                  <img src={c.logo} alt={c.name} className="w-full h-full object-contain" />
                 </motion.div>
                 <div className="flex flex-col items-end">
                   <span className="px-3 py-1 bg-[#F0F7FF] text-[#0B2A4A] text-[9px] font-black rounded-full border border-blue-100 uppercase tracking-tighter">Verified</span>

@@ -4,9 +4,9 @@ import { DollarSign, Download, FileText, TrendingUp, Users, Clock } from 'lucide
 
 const PayrollPage = () => {
   const stats = [
-    { label: 'Total Payroll', value: 'Rp 1.25B', icon: DollarSign, color: 'bg-emerald-500' },
-    { label: 'Employees Paid', value: '142', icon: Users, color: 'bg-blue-500' },
-    { label: 'Pending Approvals', value: '3', icon: Clock, color: 'bg-amber-500' },
+    { label: 'Total Payroll', value: 'Rp 1.25B', icon: DollarSign, grad: 'modern-gradient-emerald' },
+    { label: 'Employees Paid', value: '142', icon: Users, grad: 'modern-gradient-blue' },
+    { label: 'Pending Approvals', value: '3', icon: Clock, grad: 'modern-gradient-amber' },
   ];
 
   const history = [
@@ -33,15 +33,16 @@ const PayrollPage = () => {
             key={idx}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -5 }}
             transition={{ delay: idx * 0.1 }}
-            className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-center gap-4"
+            className="modern-card p-6 flex items-center gap-5 group"
           >
-            <div className={`w-14 h-14 ${stat.color} rounded-2xl flex items-center justify-center text-white shadow-lg`}>
-              <stat.icon size={24} />
+            <div className={`modern-icon-container ${stat.grad} group-hover:scale-110`}>
+              <stat.icon size={28} strokeWidth={2.5} />
             </div>
             <div>
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{stat.label}</p>
-              <p className="text-2xl font-black text-slate-900 tracking-tight">{stat.value}</p>
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
+              <p className="text-2xl font-black text-[#0B2A4A] tracking-tight">{stat.value}</p>
             </div>
           </motion.div>
         ))}

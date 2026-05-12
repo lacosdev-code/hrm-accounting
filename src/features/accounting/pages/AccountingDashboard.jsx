@@ -9,7 +9,7 @@ import {
   CreditCard, DollarSign, ArrowRight, Bell, Settings,
   Activity, Zap, Clock, Box, Shield, RefreshCw, Briefcase, Package, ClipboardList, Users, ClipboardCheck
 } from 'lucide-react';
-import { ACCOUNTING_DUMMY_DATA } from '../data/dummyData';
+import { ACCOUNTING_DUMMY_DATA } from '../../../data/dummyData';
 
 const AccountingDashboard = ({ onSwitchToHrm }) => {
   const [statsTab, setStatsTab] = useState('weekly');

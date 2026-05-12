@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import LoginPage from './pages/LoginPage';
+
+// Layouts
 import Sidebar from './layouts/Sidebar';
 import Topbar from './layouts/Topbar';
-import HrmDashboard from './pages/HrmDashboard';
-import AccountingDashboard from './pages/AccountingDashboard';
-import GroupOverview from './pages/GroupOverview';
-import EmployeesPage from './pages/EmployeesPage';
-import TransactionsPage from './pages/TransactionsPage';
-import ProjectsPage from './pages/ProjectsPage';
-import AttendancePage from './pages/AttendancePage';
-import LeaveApprovalPage from './pages/LeaveApprovalPage';
-import PayrollPage from './pages/PayrollPage';
+
+// Features - Auth
+import LoginPage from './features/auth/pages/LoginPage';
+
+// Features - Group
+import GroupOverview from './features/group/pages/GroupOverview';
+
+// Features - HRM
+import HrmDashboard from './features/hrm/pages/HrmDashboard';
+import EmployeesPage from './features/hrm/pages/EmployeesPage';
+import AttendancePage from './features/hrm/pages/AttendancePage';
+import LeaveApprovalPage from './features/hrm/pages/LeaveApprovalPage';
+import PayrollPage from './features/hrm/pages/PayrollPage';
+
+// Features - Accounting
+import AccountingDashboard from './features/accounting/pages/AccountingDashboard';
+import TransactionsPage from './features/accounting/pages/TransactionsPage';
+
+// Features - Projects
+import ProjectsPage from './features/projects/pages/ProjectsPage';
 
 const Layout = ({ 
   children, 

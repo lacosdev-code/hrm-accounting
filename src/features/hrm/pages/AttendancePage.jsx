@@ -5,8 +5,8 @@ import {
   ArrowLeft, Download, CheckCircle2, XCircle, 
   AlertCircle, ChevronLeft, ChevronRight, User
 } from 'lucide-react';
-import { attendanceService } from '../lib/dataService';
-import { supabase } from '../lib/supabase';
+import { attendanceService } from '../../../lib/dataService';
+import { supabase } from '../../../lib/supabase';
 
 const AttendancePage = () => {
   const [logs, setLogs] = useState([]);

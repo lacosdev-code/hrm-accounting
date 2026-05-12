@@ -331,3 +331,63 @@ body {
   color: #fff;
   background: linear-gradient(135deg, #0f766e, #2563eb);
 }
+
+/* --- Modern UI Design System V1.0 --- */
+.modern-card {
+  @apply bg-white rounded-[32px] border border-slate-100 shadow-xl shadow-slate-200/40 transition-all duration-300;
+}
+
+.modern-icon-container {
+  @apply w-14 h-14 rounded-2xl flex items-center justify-center text-white transition-all duration-300 shadow-2xl;
+}
+
+.modern-badge {
+  @apply px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all;
+}
+
+.modern-badge-active {
+  @apply bg-emerald-50 text-emerald-600 border-emerald-100 shadow-sm shadow-emerald-100/50;
+}
+
+.modern-badge-pending {
+  @apply bg-amber-50 text-amber-600 border-amber-100 shadow-sm shadow-amber-100/50;
+}
+
+.modern-badge-inactive {
+  @apply bg-rose-50 text-rose-600 border-rose-100 shadow-sm shadow-rose-100/50;
+}
+
+.modern-gradient-blue {
+  @apply bg-gradient-to-br from-blue-400 to-blue-600 shadow-blue-200/60;
+}
+
+.modern-gradient-gold {
+  @apply bg-gradient-to-br from-[#C5A059] to-[#8c6d30] shadow-[#C5A059]/40;
+}
+
+.modern-gradient-emerald {
+  @apply bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-emerald-200/60;
+}
+
+.modern-gradient-amber {
+  @apply bg-gradient-to-br from-amber-400 to-amber-600 shadow-amber-200/60;
+}
+
+.modern-gradient-navy {
+  @apply bg-gradient-to-br from-[#0B2A4A] to-[#06192d] shadow-[#0B2A4A]/40;
+}
+
+/* Custom Scrollbar Modern */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}

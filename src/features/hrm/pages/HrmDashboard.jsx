@@ -9,7 +9,7 @@ import {
   AlertTriangle, CreditCard, ChevronDown, Coffee, FolderKanban
 } from 'lucide-react';
 
-import { HRM_DUMMY_DATA } from '../data/dummyData';
+import { HRM_DUMMY_DATA } from '../../../data/dummyData';
 
 const HrmDashboard = () => {
   const [search, setSearch] = useState('');

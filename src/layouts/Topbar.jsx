@@ -11,8 +11,16 @@ import {
 } from 'lucide-react';
 
 const Topbar = ({ currentMode, onSwitch, onMenuClick }) => {
+  const [showCalendar, setShowCalendar] = useState(false);
   const [currentLang, setCurrentLang] = useState('ID');
   const [showLang, setShowLang] = useState(false);
+
+  const upcomingEvents = [
+    { date: '25 May', title: 'Monthly Payroll', type: 'HRM', color: 'text-emerald-500' },
+    { date: '15 May', title: 'Tax Deadline', type: 'Finance', color: 'text-rose-500' },
+    { date: '20 May', title: 'Construction Milestone', type: 'Project', color: 'text-blue-500' },
+    { date: '12 May', title: 'CEO Quarterly Meeting', type: 'Group', color: 'text-[#C5A059]' },
+  ];
 
   return (
     <header className="h-[60px] md:h-[70px] bg-white border-b border-slate-100 flex items-center justify-between px-4 md:px-8 shrink-0 font-['Plus_Jakarta_Sans'] sticky top-0 z-30">
@@ -33,10 +41,45 @@ const Topbar = ({ currentMode, onSwitch, onMenuClick }) => {
             className="w-full bg-slate-50 border border-slate-100 rounded-xl py-2 pl-12 pr-4 text-xs font-medium focus:outline-none focus:border-slate-200 transition-all"
           />
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-[#0B2A4A] rounded-xl text-xs font-bold hover:bg-[#F0F7FF] transition-all shadow-sm">
-          <Calendar size={16} className="text-[#C5A059]" />
-          Calendar
-        </button>
+
+        <div className="relative">
+          <button 
+            onClick={() => { setShowCalendar(!showCalendar); setShowLang(false); }}
+            className={`flex items-center gap-2 px-4 py-2 border rounded-xl text-xs font-bold transition-all shadow-sm ${showCalendar ? 'bg-[#0B2A4A] text-[#C5A059] border-[#0B2A4A]' : 'bg-white border-slate-200 text-[#0B2A4A] hover:bg-[#F0F7FF]'}`}
+          >
+            <Calendar size={16} className={showCalendar ? 'text-[#C5A059]' : 'text-[#C5A059]'} />
+            Calendar
+          </button>
+
+          {showCalendar && (
+            <>
+              <div className="fixed inset-0 z-[60]" onClick={() => setShowCalendar(false)} />
+              <div className="absolute top-full left-0 mt-3 bg-white border border-slate-200 rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.15)] z-[70] overflow-hidden min-w-[280px] p-5 animate-fade-in">
+                <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-50">
+                  <h4 className="text-sm font-black text-[#0B2A4A]">Upcoming Events</h4>
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                </div>
+                <div className="space-y-4">
+                  {upcomingEvents.map((ev, i) => (
+                    <div key={i} className="flex items-center gap-4 group cursor-pointer">
+                      <div className="text-center min-w-[40px]">
+                        <p className="text-[10px] font-black text-slate-400 uppercase leading-none">{ev.date.split(' ')[1]}</p>
+                        <p className="text-lg font-black text-[#0B2A4A] leading-tight">{ev.date.split(' ')[0]}</p>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-[11px] font-black text-slate-800 group-hover:text-[#C5A059] transition-colors">{ev.title}</p>
+                        <p className={`text-[9px] font-bold uppercase tracking-widest ${ev.color}`}>{ev.type}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <button className="w-full mt-6 py-2.5 bg-slate-50 hover:bg-[#0B2A4A] hover:text-white rounded-xl text-[10px] font-black text-[#0B2A4A] transition-all border border-slate-100">
+                  VIEW FULL CALENDAR
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
       {/* Right: Info & Profile */}
@@ -63,7 +106,7 @@ const Topbar = ({ currentMode, onSwitch, onMenuClick }) => {
         <div className="flex items-center gap-3 pl-6 border-l border-slate-100">
           <div className="relative">
             <button 
-              onClick={() => setShowLang(!showLang)}
+              onClick={() => { setShowLang(!showLang); setShowCalendar(false); }}
               className="flex items-center gap-1.5 text-slate-500 hover:text-[#0B2A4A] transition-colors font-bold text-xs"
             >
               <Globe size={16} className="text-[#C5A059]" />
@@ -72,22 +115,25 @@ const Topbar = ({ currentMode, onSwitch, onMenuClick }) => {
             </button>
 
             {showLang && (
-              <div className="absolute top-full right-0 mt-3 bg-white border border-slate-200 rounded-xl shadow-xl z-[70] overflow-hidden min-w-[140px] p-1">
-                <button 
-                  onClick={() => { setCurrentLang('ID'); setShowLang(false); }}
-                  className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-xs font-bold transition-all ${currentLang === 'ID' ? 'bg-[#F0F7FF] text-[#0B2A4A]' : 'text-slate-600 hover:bg-slate-50'}`}
-                >
-                  Bahasa Indonesia
-                  {currentLang === 'ID' && <div className="w-1.5 h-1.5 rounded-full bg-[#C5A059]" />}
-                </button>
-                <button 
-                  onClick={() => { setCurrentLang('EN'); setShowLang(false); }}
-                  className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-xs font-bold transition-all ${currentLang === 'EN' ? 'bg-[#F0F7FF] text-[#0B2A4A]' : 'text-slate-600 hover:bg-slate-50'}`}
-                >
-                  English
-                  {currentLang === 'EN' && <div className="w-1.5 h-1.5 rounded-full bg-[#C5A059]" />}
-                </button>
-              </div>
+              <>
+                <div className="fixed inset-0 z-[60]" onClick={() => setShowLang(false)} />
+                <div className="absolute top-full right-0 mt-3 bg-white border border-slate-200 rounded-xl shadow-xl z-[70] overflow-hidden min-w-[140px] p-1 animate-fade-in">
+                  <button 
+                    onClick={() => { setCurrentLang('ID'); setShowLang(false); }}
+                    className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-xs font-bold transition-all ${currentLang === 'ID' ? 'bg-[#F0F7FF] text-[#0B2A4A]' : 'text-slate-600 hover:bg-slate-50'}`}
+                  >
+                    Bahasa Indonesia
+                    {currentLang === 'ID' && <div className="w-1.5 h-1.5 rounded-full bg-[#C5A059]" />}
+                  </button>
+                  <button 
+                    onClick={() => { setCurrentLang('EN'); setShowLang(false); }}
+                    className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-xs font-bold transition-all ${currentLang === 'EN' ? 'bg-[#F0F7FF] text-[#0B2A4A]' : 'text-slate-600 hover:bg-slate-50'}`}
+                  >
+                    English
+                    {currentLang === 'EN' && <div className="w-1.5 h-1.5 rounded-full bg-[#C5A059]" />}
+                  </button>
+                </div>
+              </>
             )}
           </div>
           
