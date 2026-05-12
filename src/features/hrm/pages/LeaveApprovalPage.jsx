@@ -4,8 +4,8 @@ import {
   Check, X, Calendar, User, FileText, 
   Clock, Filter, Search, ChevronRight, AlertCircle, CheckCircle2 
 } from 'lucide-react';
-import { hrmService } from '../../../lib/dataService';
-import { supabase } from '../../../lib/supabase';
+import { hrmService } from '@/lib/dataService';
+import { supabase } from '@/lib/supabase';
 
 const LeaveApprovalPage = () => {
   const [requests, setRequests] = useState([]);

@@ -4,7 +4,7 @@ import {
   Plus, Search, Filter, ArrowDownLeft, ArrowUpRight, 
   Calendar, Download, MoreVertical, Landmark, X, Trash2, Edit2, FileSpreadsheet, FileText
 } from 'lucide-react';
-import { downloadPDF, downloadExcel } from '../../../lib/exportUtils';
+import { downloadPDF, downloadExcel } from '@/lib/exportUtils';
 
 const TransactionsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');

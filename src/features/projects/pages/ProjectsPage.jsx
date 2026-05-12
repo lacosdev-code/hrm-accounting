@@ -5,8 +5,8 @@ import {
   Target, TrendingUp, MoreVertical, X, CheckCircle2,
   Clock, AlertCircle, ChevronRight, BarChart3
 } from 'lucide-react';
-import { projectService } from '../../../lib/dataService';
-import { supabase } from '../../../lib/supabase';
+import { projectService } from '@/lib/dataService';
+import { supabase } from '@/lib/supabase';
 
 const ProjectCard = ({ project, delay }) => {
   const getStatusColor = (status) => {
