@@ -7,9 +7,17 @@ const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (onLogin) onLogin('hrm');
+  const handleLogin = (e, targetMode = 'hrm') => {
+    if (e) e.preventDefault();
+    
+    // Demo credentials check
+    if (email.toLowerCase() === 'sgd' && password === 'sgd123') {
+      if (onLogin) onLogin(targetMode);
+    } else if (email === '' || password === '') {
+      alert('Silakan masukkan username dan password.');
+    } else {
+      alert('Username atau Password salah. Silakan coba: sgd / sgd123');
+    }
   };
 
   const features = [
@@ -124,7 +132,7 @@ const LoginPage = ({ onLogin }) => {
               </button>
               <button
                 type="button"
-                onClick={() => onLogin('accounting')}
+                onClick={() => handleLogin(null, 'accounting')}
                 className="py-4 bg-white border border-slate-200 hover:border-[#0B2A4A] text-slate-700 font-black rounded-2xl transition-all flex items-center justify-center gap-2 shadow-sm"
               >
                 Accounting <BarChart2 size={18} className="text-[#C5A059]" />
