@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, ArrowRight, Smartphone, DollarSign, BarChart2, Briefcase, MessageSquare, Headphones } from 'lucide-react';
+import { ShieldCheck, ArrowRight, Smartphone, DollarSign, BarChart2, Briefcase, MessageSquare, Headphones, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 const LoginPage = ({ onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [notification, setNotification] = useState({ show: false, message: '', type: 'error' });
+
+  const showToast = (message, type = 'error') => {
+    setNotification({ show: true, message, type });
+    setTimeout(() => setNotification({ ...notification, show: false }), 4000);
+  };
 
   const handleLogin = (e, targetMode = 'hrm') => {
     if (e) e.preventDefault();
@@ -14,9 +20,9 @@ const LoginPage = ({ onLogin }) => {
     if (email.toLowerCase() === 'sgd' && password === 'sgd123') {
       if (onLogin) onLogin(targetMode);
     } else if (email === '' || password === '') {
-      alert('Silakan masukkan username dan password.');
+      showToast('Silakan masukkan username dan password.', 'warning');
     } else {
-      alert('Username atau Password salah. Silakan coba: sgd / sgd123');
+      showToast('Username atau Password salah. Silakan coba: sgd / sgd123', 'error');
     }
   };
 
@@ -30,9 +36,27 @@ const LoginPage = ({ onLogin }) => {
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 md:p-8 font-['Plus_Jakarta_Sans']" style={{
+    <div className="min-h-screen flex items-center justify-center p-4 md:p-8 font-['Plus_Jakarta_Sans'] relative overflow-hidden" style={{
       background: 'radial-gradient(900px 300px at 10% 0%, rgba(11,42,74,.10), transparent 60%), radial-gradient(700px 260px at 100% 15%, rgba(197,160,89,.08), transparent 55%), linear-gradient(135deg, #f8fbff, #e6f2ff)',
     }}>
+      {/* Premium Toast Notification */}
+      {notification.show && (
+        <div className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-md animate-slide-down">
+          <div className={`p-4 rounded-2xl border backdrop-blur-xl shadow-2xl flex items-center gap-3 ${
+            notification.type === 'error' 
+              ? 'bg-rose-50/90 border-rose-200 text-rose-800' 
+              : 'bg-amber-50/90 border-amber-200 text-amber-800'
+          }`}>
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+              notification.type === 'error' ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white'
+            }`}>
+              {notification.type === 'error' ? <AlertCircle size={20} /> : <CheckCircle2 size={20} />}
+            </div>
+            <p className="text-sm font-bold leading-tight">{notification.message}</p>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
         
         {/* LEFT SIDE: Brand Info */}
