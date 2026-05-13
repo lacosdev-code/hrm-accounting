@@ -85,9 +85,9 @@ const Topbar = ({ currentMode, onSwitch, onMenuClick }) => {
       {/* Right: Info & Profile */}
       <div className="flex items-center gap-6">
         <div className="hidden xl:flex flex-col items-end">
-          <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400">
-            <span className="w-2 h-2 bg-rose-500 rounded-full animate-pulse" />
-            Trial tersisa 9 hari.
+          <div className="flex items-center gap-2 text-[10px] font-bold text-emerald-500">
+            <span className="w-2 h-2 bg-emerald-500 rounded-full" />
+            System Active
           </div>
           <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#C5A059] cursor-pointer hover:underline">
             <Headset size={12} />
