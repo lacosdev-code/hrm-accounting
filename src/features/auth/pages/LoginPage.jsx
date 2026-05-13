@@ -33,14 +33,10 @@ const LoginPage = ({ onLogin }) => {
     <div className="min-h-screen flex items-center justify-center p-4 md:p-8 font-['Plus_Jakarta_Sans']" style={{
       background: 'radial-gradient(900px 300px at 10% 0%, rgba(11,42,74,.10), transparent 60%), radial-gradient(700px 260px at 100% 15%, rgba(197,160,89,.08), transparent 55%), linear-gradient(135deg, #f8fbff, #e6f2ff)',
     }}>
-      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
         
         {/* LEFT SIDE: Brand Info */}
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="hidden md:flex flex-col p-10 bg-white/80 backdrop-blur-xl border border-white rounded-[32px] shadow-2xl shadow-emerald-900/5 relative overflow-hidden"
-        >
+        <div className="hidden md:flex flex-col p-10 bg-white/80 backdrop-blur-xl border border-white rounded-[32px] shadow-2xl shadow-emerald-900/5 relative overflow-hidden">
           <div className="relative z-10">
             <div className="flex items-center gap-4 mb-8">
               <div className="h-16 bg-white rounded-2xl flex items-center justify-center shadow-xl border border-slate-100 p-3">
@@ -71,14 +67,10 @@ const LoginPage = ({ onLogin }) => {
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* RIGHT SIDE: Login Form */}
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="bg-white/90 backdrop-blur-xl border border-white rounded-[32px] shadow-2xl shadow-emerald-900/10 p-8 md:p-12 flex flex-col justify-center"
-        >
+        <div className="bg-white/95 backdrop-blur-xl border border-white rounded-[32px] shadow-2xl shadow-emerald-900/10 p-8 md:p-12 flex flex-col justify-center relative z-20">
           <div className="mb-10">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-3xl font-black text-[#0B2A4A]">Masuk</h2>
@@ -89,26 +81,26 @@ const LoginPage = ({ onLogin }) => {
             <p className="text-slate-500 font-medium text-sm">Silakan masuk ke akun Anda untuk melanjutkan akses ke dashboard.</p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div>
+          <form onSubmit={handleLogin} className="space-y-6 relative z-30">
+            <div className="relative">
               <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Email / Username</label>
               <input
                 type="text"
-                placeholder="admin@company.com"
+                placeholder="Masukkan username"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:border-[#0B2A4A] focus:ring-4 focus:ring-[#0B2A4A]/10 outline-none transition-all font-bold text-slate-900"
+                className="w-full px-6 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-[#0B2A4A] focus:ring-4 focus:ring-[#0B2A4A]/10 outline-none transition-all font-bold text-slate-900 relative z-30"
                 required
               />
             </div>
 
-            <div>
+            <div className="relative">
               <div className="flex justify-between items-center mb-2 ml-1">
                 <label className="block text-[11px] font-black text-slate-400 uppercase tracking-widest">Password</label>
                 <button 
                   type="button" 
                   onClick={() => setShowPassword(!showPassword)}
-                  className="text-xs font-black text-[#C5A059] hover:text-[#0B2A4A]"
+                  className="text-xs font-black text-[#C5A059] hover:text-[#0B2A4A] relative z-40"
                 >
                   {showPassword ? 'Sembunyikan' : 'Lihat'}
                 </button>
@@ -118,7 +110,7 @@ const LoginPage = ({ onLogin }) => {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:border-[#0B2A4A] focus:ring-4 focus:ring-[#0B2A4A]/10 outline-none transition-all font-bold text-slate-900"
+                className="w-full px-6 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-[#0B2A4A] focus:ring-4 focus:ring-[#0B2A4A]/10 outline-none transition-all font-bold text-slate-900 relative z-30"
                 required
               />
             </div>
@@ -126,22 +118,20 @@ const LoginPage = ({ onLogin }) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
               <button
                 type="submit"
-                className="py-4 bg-[#0B2A4A] hover:brightness-110 text-[#C5A059] font-black rounded-2xl shadow-xl shadow-slate-200 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2"
+                className="py-4 bg-[#0B2A4A] hover:brightness-110 text-[#C5A059] font-black rounded-2xl shadow-xl shadow-slate-200 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 relative z-30"
               >
                 Login HRM <ArrowRight size={18} />
               </button>
               <button
                 type="button"
-                onClick={() => handleLogin(null, 'accounting')}
-                className="py-4 bg-white border border-slate-200 hover:border-[#0B2A4A] text-slate-700 font-black rounded-2xl transition-all flex items-center justify-center gap-2 shadow-sm"
+                onClick={(e) => handleLogin(e, 'accounting')}
+                className="py-4 bg-white border border-slate-200 hover:border-[#0B2A4A] text-slate-700 font-black rounded-2xl transition-all flex items-center justify-center gap-2 shadow-sm relative z-30"
               >
                 Accounting <BarChart2 size={18} className="text-[#C5A059]" />
               </button>
             </div>
           </form>
-
-
-        </motion.div>
+        </div>
 
       </div>
     </div>
