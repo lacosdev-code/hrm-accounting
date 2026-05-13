@@ -142,6 +142,7 @@ const LoginPage = ({ onLogin }) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
               <button
                 type="submit"
+                onClick={(e) => handleLogin(e, 'hrm')}
                 className="py-4 bg-[#0B2A4A] hover:brightness-110 text-[#C5A059] font-black rounded-2xl shadow-xl shadow-slate-200 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 relative z-30"
               >
                 Login HRM <ArrowRight size={18} />
