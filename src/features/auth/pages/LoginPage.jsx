@@ -36,23 +36,26 @@ const LoginPage = ({ onLogin }) => {
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 md:p-8 font-['Plus_Jakarta_Sans'] relative overflow-hidden" style={{
+    <div className="min-h-screen flex items-center justify-center p-4 md:p-8 font-['Plus_Jakarta_Sans'] relative" style={{
       background: 'radial-gradient(900px 300px at 10% 0%, rgba(11,42,74,.10), transparent 60%), radial-gradient(700px 260px at 100% 15%, rgba(197,160,89,.08), transparent 55%), linear-gradient(135deg, #f8fbff, #e6f2ff)',
     }}>
-      {/* Premium Toast Notification */}
+      {/* Premium Toast Notification - Mobile Optimized */}
       {notification.show && (
-        <div className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-md animate-slide-down">
-          <div className={`p-4 rounded-2xl border backdrop-blur-xl shadow-2xl flex items-center gap-3 ${
+        <div className="fixed top-4 md:top-10 left-1/2 -translate-x-1/2 z-[9999] w-[92%] sm:w-auto sm:min-w-[320px] max-w-[400px] animate-slide-down pointer-events-none">
+          <div className={`p-4 rounded-2xl border backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] flex items-center gap-4 pointer-events-auto ${
             notification.type === 'error' 
-              ? 'bg-rose-50/90 border-rose-200 text-rose-800' 
-              : 'bg-amber-50/90 border-amber-200 text-amber-800'
+              ? 'bg-rose-50/95 border-rose-200 text-rose-900' 
+              : 'bg-amber-50/95 border-amber-200 text-amber-900'
           }`}>
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-lg ${
               notification.type === 'error' ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white'
             }`}>
-              {notification.type === 'error' ? <AlertCircle size={20} /> : <CheckCircle2 size={20} />}
+              {notification.type === 'error' ? <AlertCircle size={24} /> : <CheckCircle2 size={24} />}
             </div>
-            <p className="text-sm font-bold leading-tight">{notification.message}</p>
+            <div className="flex-1">
+              <p className="text-[10px] font-black uppercase tracking-widest opacity-50 mb-0.5">Notification</p>
+              <p className="text-sm font-extrabold leading-tight">{notification.message}</p>
+            </div>
           </div>
         </div>
       )}
